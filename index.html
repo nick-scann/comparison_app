@@ -116,18 +116,21 @@
 
   <script>
 
+    //Define apartment object
+    var apartment = function(id, name, rentAmt, parkAmt, lScore, aScore,uScore, bScore){
+            this.id = id;
+            this.name = name;
+            this.rentAmt = rentAmt;
+            this.parkAmt = parkAmt;
+            this.lScore = lScore;
+            this.aScore = aScore;
+            this.uScore = uScore;
+            this.bScore = bScore; 
+        }
+
     //Calculate Cost Per Score
     function calculateCPS() {
-        var apartment = {
-            id: "",
-            name: "",
-            rentAmt: "",
-            parkAmt: "",
-            lScore: "",
-            aScore: "",
-            uScore: "",
-            bScore: "" 
-        }
+
         apartment.rentAmt = document.getElementById("rentAmt").value;
         console.log(apartment.rentAmt);
         apartment.parkAmt = document.getElementById("parkAmt").value;
@@ -146,7 +149,7 @@
         return;
         }
 
-        //Calculate Price per Sq Ft
+        //Calculate Cost Score
         apartment.bScore = (+apartment.lScore + +apartment.aScore) / 2;
         console.log(apartment.bScore) ;
         var totalScore = (apartment.bScore * apartment.uScore);
