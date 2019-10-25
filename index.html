@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Apartment Comparison</title>
+        <style>
+            
+            h1{
+                font-family: Arial;
+            }
+            #section1{padding: 50px}
+            #button {padding: 3px; margin: 10px}
+            h2{
+                font-family: Arial;
+            }
+            input, select {
+              width: 100%;
+              padding: 12px 20px;
+              margin: 8px 0;
+              display: inline-block;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              box-sizing: border-box;
+              font-size: 14px
+            }
+            input[type=submit] {
+              width: 100%;
+              background-color: #4CAF50;
+              color: white;
+              padding: 14px 20px;
+              margin: 8px 0;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+            button {
+              width: 100%;
+              padding: 12px 20px;
+              margin: 8px 0;
+              display: inline-block;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              box-sizing: border-box;
+              font-size: 14px
+            }
+            button:hover {
+              background-color: #45a049;
+            }
+            .score{
+                position: absolute;
+                right: 200px;
+                width: 300px;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="section1">
+        <h1>Compare Apartments</h1>
+        <form>
+
+        <h2>Neighborhood<h2>
+              <select id="neighborhood" label="Neighborhood">
+                <option value="Queen Anne">Queen Anne</option>
+                <option value="Belltown">Belltown</option>
+                <option value="Ballard">Ballard</option>
+            <p>
+            <input id="locationScore" type="number" placeholder="Location Score">    
+        <h2>Building<h2>
+            <input id="buildingName" type="text" placeholder="Building Name">
+            <p>
+            <input id="amenitiesScore" type="number" placeholder="Amenities Score">
+            <p>
+
+        <div class="score">
+            <span id="buildingScore">0</span> 
+            <small>Building Score</small>
+         </div>
+
+        <p></p>
+
+        <h2>Unit<h2>
+            <input id="uitType" type="text" placeholder="Unit Type">
+            <p>
+            <input id="sqFt" type="number" placeholder="Square Feet">
+            <p>
+            <input id="unitScore" type="number" placeholder="Unit Score">
+
+        <div class="score">
+            <span id="totalScore">0</span>
+            <small>Total Score</small>
+         </div>
+
+        <p></p>
+
+        <h2>Costs<h2>    
+            <input id="rentAmt" type="number" placeholder="Rent Amount $">
+            <p>
+            <input id="parkAmt" type="number" placeholder="Parking Amount $">
+        </form>
+
+
+
+      <!--form end-->
+      <div class="score" id="cScore">
+        <sup>$</sup>
+        <span id="costScore">0.00</span>
+        <small>Cost Score</small>
+      </div>
+      <!--total end-->
+
+      <p></p>
+
+    <button type="button" id="score">Score!</button>
+    
+    </div>
+
+  <script>
+
+    //Calculate Cost Per Score
+    function calculateCPS() {
+        var apartment = {
+            id: "",
+            name: "",
+            rentAmt: "",
+            parkAmt: "",
+            lScore: "",
+            aScore: "",
+            uScore: "",
+            bScore: "" 
+        }
+        apartment.rentAmt = document.getElementById("rentAmt").value;
+        console.log(apartment.rentAmt);
+        apartment.parkAmt = document.getElementById("parkAmt").value;
+        console.log(apartment.parkAmt);
+        apartment.lScore = document.getElementById("locationScore").value;
+        console.log(apartment.lScore)
+        apartment.aScore = document.getElementById("amenitiesScore").value;
+        console.log(apartment.aScore)
+        apartment.uScore = document.getElementById("unitScore").value;
+        console.log(apartment.uScore)
+
+
+        //validate input
+        if (apartment.rentAmt === "" || apartment.parkAmt == 0  || apartment.uScore == 0 || apartment.aScore == 0 || apartment.uScore == 0 || apartment.lScore == 0) {
+        alert("Please enter values");
+        return;
+        }
+
+        //Calculate Price per Sq Ft
+        apartment.bScore = (+apartment.lScore + +apartment.aScore) / 2;
+        console.log(apartment.bScore) ;
+        var totalScore = (apartment.bScore * apartment.uScore);
+        console.log(totalScore);
+        var totalCost = (+apartment.rentAmt + +apartment.parkAmt);
+        console.log(totalCost);
+        var costScore = (totalCost / totalScore);
+        console.log(costScore);
+        //round to two decimal places
+        costScore = Math.round(costScore * 100) / 100;
+        //next line allows us to always have two digits after decimal point
+        // costScore = costScore.toFixed(2);
+        //Display the scores
+        document.getElementById("buildingScore").style.display = "block";
+        document.getElementById("buildingScore").innerHTML = apartment.bScore;
+        document.getElementById("totalScore").style.display = "block";
+        document.getElementById("totalScore").innerHTML = totalScore;
+        document.getElementById("cScore").style.display = "block";
+        document.getElementById("costScore").innerHTML = costScore;
+    }
+
+    //Hide the Price amount on load
+    document.getElementById("cScore").style.display = "none";
+
+    //click to call function
+    document.getElementById("score").onclick = function() {
+      calculateCPS();
+
+    };
+
+  </script>
+
+    </body>
+</html>
