@@ -9,37 +9,37 @@
     <div id="section1">
         <h1>Compare Apartments</h1>
         <form>
-
-        <h2>Neighborhood<h2>
+        <h2>Apartment</h2>
+        <h3>Neighborhood<h3>
               <select id="neighborhood" label="Neighborhood">
                 <option value="Queen Anne">Queen Anne</option>
                 <option value="Belltown">Belltown</option>
                 <option value="Ballard">Ballard</option>
             <p>
             <input id="locationScore" type="number" placeholder="Location Score">    
-        <h2>Building<h2>
+        <h3>Building<h3>
             <input id="buildingName" type="text" placeholder="Building Name">
             <p>
             <input id="amenitiesScore" type="number" placeholder="Amenities Score">
             <p>
 
         <div class="score">
+            <small>Building Score</small>           
             <span id="buildingScore">0</span> 
-            <small>Building Score</small>
          </div>
 
         <p></p>
 
         <h2>Unit<h2>
-            <input id="uitType" type="text" placeholder="Unit Type">
+            <!--input id="uitType" type="text" placeholder="Unit Type"-->
             <p>
-            <input id="sqFt" type="number" placeholder="Square Feet">
+            <!--input id="sqFt" type="number" placeholder="Square Feet"-->
             <p>
             <input id="unitScore" type="number" placeholder="Unit Score">
 
         <div class="score">
+            <small>Total Apartment Score</small>
             <span id="totalScore">0</span>
-            <small>Total Score</small>
          </div>
 
         <p></p>
@@ -51,18 +51,18 @@
         </form>
 
 
-
       <!--form end-->
-      <div class="score" id="cScore">
-        <sup>$</sup>
-        <span id="costScore">0.00</span>
+      <div class="score" id="vScore">
         <small>Value Score</small>
+        <span id="valueScore">0</span>
       </div>
       <!--total end-->
+    
+    </div>
 
-      <p></p>
-
-    <button type="button" id="score">Score!</button>
+    <div>
+    <button type="button" id="scorebutton">Get Value Score</button>
+    </div>
     
     </div>
     <script type="text/javascript" src="src/index.js"></script>
