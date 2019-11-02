@@ -1,14 +1,35 @@
 <style>
+  body { 
+    background-color: #d3dbe2;
+  } 
+  body {
+    background-color: #d2dae0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 50%
+    margin: auto;
+  }
   h1{
-      font-family: Arial;
+      padding: 25px;
+      margin: auto;
+      text-align: center;
   }
-  #section1{padding: 50px}
+  .item{
+    padding: 25px;
+    background-color: #ffffff;
+    width: 60%;
+    margin: auto;
+  }
   #button {padding: 3px; margin: 10px}
-  h2{
-      font-family: Arial;
+
+  input[type = text] {
+    width: 48%
   }
-  h3{
-    font-family: Arial;
+  input[type = number] {
+    width: 48%
+  }
+  .select {
+    width: 48%;
+    height: 20px;
   }
   input, select {
     width: 100%;
@@ -18,7 +39,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-size: 14px
+    font-size: 14px;
   }
   input[type=submit] {
     width: 100%;
@@ -31,19 +52,21 @@
     cursor: pointer;
   }
   button {
-    width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
+    margin: auto;
+    width:67%;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-size: 14px
+    font-size: 18px;
   }
   button:hover {
     background-color: #45a049;
     color: #ffffff
+    margin: auto;
+    width: 67%;
   }
   .score{
+    padding-top: 20px
   }
 </style>

@@ -1,8 +1,9 @@
 import "./styles.css";
 
-//Define apartment object
+//Define apartments object
 var apartments = [];
 
+//Define apartment object
 function Apartment(name, rentAmt, parkAmt, lScore, aScore, uScore) {
   this.name = name;
   this.rentAmt = rentAmt;
@@ -35,21 +36,13 @@ function addApartment() {
       document.getElementById("amenitiesScore").value,
       document.getElementById("unitScore").value
     );
-    console.log(apartment.name);
-    console.log(apartment.rentAmt);
-
     apartments.push(apartment);
   }
-  addObject();
-  console.log(apartments[0]);
-  console.log(apartments[0].bScore());
-  console.log(apartments[0].totalScore());
-  console.log(apartments[0].totalCost());
-  console.log(apartments[0].valueScore());
+
   // Update page elements with scores
   function updateView() {
-    document.getElementById("buildingScore").style.display = "block";
-    document.getElementById("buildingScore").innerHTML = apartments[0].bScore();
+    //document.getElementById("buildingScore").style.display = "block";
+    //document.getElementById("buildingScore").innerHTML = apartments[0].bScore();
     document.getElementById("totalScore").style.display = "block";
     document.getElementById(
       "totalScore"
@@ -59,35 +52,31 @@ function addApartment() {
       "valueScore"
     ).innerHTML = apartments[0].valueScore();
   }
+  addObject();
+  console.log(apartments[0]);
+  console.log(apartments[0].bScore());
+  console.log(apartments[0].totalScore());
+  console.log(apartments[0].totalCost());
+  console.log(apartments[0].valueScore());
   updateView();
 }
 
 // Hide the scores on load
 document.getElementById("valueScore").style.display = "none";
 document.getElementById("totalScore").style.display = "none";
-document.getElementById("buildingScore").style.display = "none";
+//document.getElementById("buildingScore").style.display = "none";
 
 //click to call addApartment function
 document.getElementById("scorebutton").onclick = function() {
   addApartment();
 };
-
+function addItem() {
+  var container = document.getElementById("container");
+  for (i = 0; i < apartments.length; i++) {}
+}
 /* Old stuff
-
-  //Calculate Cost Score
-  
-  //console.log(this.bScore) ;
-  // var totalScore = this.bScore * this.uScore;
-  //console.log(totalScore);
-  // var totalCost = +this.rentAmt + +this.parkAmt;
-  //console.log(totalCost);
-  // var valueScore = totalCost / totalScore;
-  //console.log(valueScore);
   //round to two decimal places
-  // valueScore = Math.round(valueScore * 100) / 100;
-
-
+  this.valueScore = Math.round(valueScore * 100) / 100;
   //next line allows us to always have two digits after decimal point
-  // costScore = costScore.toFixed(2);
-
+  costScore = costScore.toFixed(2);
 */
