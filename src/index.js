@@ -7,24 +7,24 @@ var apartments = [];
 document.getElementById("newObject").style.display = "none";
 
 // Apartment object constructor
-function Apartment(name, rentAmt, parkAmt, lScore, aScore, uScore) {
+function Apartment(name, rentAmt, parkAmt, lScore, bScore, uScore) {
   this.name = name;
   this.rentAmt = rentAmt;
   this.parkAmt = parkAmt;
   this.lScore = lScore;
-  this.aScore = aScore;
+  this.bScore = bScore;
   this.uScore = uScore;
-  this.bScore = function() {
-    return (this.lScore + this.aScore) / 2;
+  this.aScore = function() {
+    return (+this.lScore + +this.bScore) / 2;
   };
   this.totalScore = function() {
-    return this.bScore() * this.uScore;
+    return (this.aScore() * this.uScore) / 10;
   };
   this.totalCost = function() {
     return +this.rentAmt + +this.parkAmt;
   };
   this.valueScore = function() {
-    return this.totalCost() / this.totalScore();
+    return +this.totalScore() - +this.totalCost() / 1000;
   };
 }
 
@@ -56,10 +56,10 @@ function addFormItem() {
     bName.type = "text";
     bName.id = "buildingName" + apartments.length;
     bName.placeholder = "Building Name";
-    var bScore = document.createElement("input");
-    bScore.type = "number";
-    bScore.id = "buildingScore" + apartments.length;
-    bScore.placeholder = "Building Score";
+    var aScore = document.createElement("input");
+    aScore.type = "number";
+    aScore.id = "buildingScore" + apartments.length;
+    aScore.placeholder = "Building Score";
     var location = document.createElement("input");
     location.type = "number";
     location.id = "locationScore" + apartments.length;
@@ -84,7 +84,7 @@ function addFormItem() {
     apartmentDiv.appendChild(apartmentTitle);
     apartmentDiv.appendChild(aForm);
     aForm.appendChild(bName);
-    aForm.appendChild(bScore);
+    aForm.appendChild(aScore);
     aForm.appendChild(location);
     aForm.appendChild(unit);
     aForm.appendChild(rentAmt);
@@ -114,7 +114,7 @@ function updateApartments() {
     apartments[i].lScore = document.getElementById(
       "locationScore" + +(i + 1)
     ).value;
-    apartments[i].aScore = document.getElementById(
+    apartments[i].bScore = document.getElementById(
       "buildingScore" + +(i + 1)
     ).value;
     apartments[i].uScore = document.getElementById(
@@ -122,12 +122,15 @@ function updateApartments() {
     ).value;
     updateView();
   }
-  console.log(apartments);
 }
 
 //click to call addApartment function
 document.getElementById("scorebutton").onclick = function() {
   updateApartments();
+  console.log(apartments[0].aScore());
+  console.log(apartments[0].totalCost());
+  console.log(apartments[0].totalScore());
+  console.log(apartments[0].valueScore());
 };
 
 /* Old stuff
