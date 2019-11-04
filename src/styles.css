@@ -5,7 +5,7 @@
   body {
     background-color: #d2dae0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    width: 50%
+    width: 100%;
     margin: auto;
   }
   h1{
@@ -13,8 +13,20 @@
       margin: auto;
       text-align: center;
   }
+  p {
+    margin: center;
+    text-align: center;
+  }
   .item{
     padding: 25px;
+    padding-top: 25px;
+    background-color: #ffffff;
+    width: 60%;
+    margin: auto;
+  }
+  .newObject{
+    padding: 25px;
+    padding-top: 25px;
     background-color: #ffffff;
     width: 60%;
     margin: auto;
@@ -22,10 +34,10 @@
   #button {padding: 3px; margin: 10px}
 
   input[type = text] {
-    width: 48%
+    width: 48%;
   }
   input[type = number] {
-    width: 48%
+    width: 48%;
   }
   .select {
     width: 48%;
@@ -54,7 +66,8 @@
   button {
     padding: 12px 20px;
     margin: auto;
-    width:67%;
+    margin-top: 10px;
+    width:40%;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -62,11 +75,9 @@
   }
   button:hover {
     background-color: #45a049;
-    color: #ffffff
-    margin: auto;
-    width: 67%;
+    color: #ffffff;
   }
   .score{
-    padding-top: 20px
+    padding-top: 30px;
   }
 </style>

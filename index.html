@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Apartment Comparison</title>
-        <link rel="stylesheet" type="text/css" href="/src/styles.css">
-    </head>
-    <body>
-        <h1>Compare Apartments</h1>
-        <div class="item" id="section1">
+  <head>
+    <meta charset="utf-8" />
+    <title>Apartment Comparison</title>
+    <link rel="stylesheet" type="text/css" href="/src/styles.css" />
+  </head>
+  <body>
+    <h1>Compare Apartments</h1>
+    <!--div class="item" id="section1">
             <form id="apartment">
                 <h2>Apartment</h2>
                     <input id="buildingName" type="text" placeholder="Building Name" label="Building Name">
-                    <input id="amenitiesScore" type="number" placeholder="Building Score">
+                    <input id="buildingScore" type="number" placeholder="Building Score">
                 <!--div class="score">
                     <text>Building Score</text>           
                     <span id="buildingScore">0</span>
                 <h2>Location</h2>
-                </div-->
+                </div>
                 <p></p>
                     <select class = "select" id="neighborhood" label="Neighborhood">
                         <option value="Queen Anne">Queen Anne</option>
@@ -26,8 +26,8 @@
 
 
                 <!--h2>Unit</h2-->
-                    <!--input id="uitType" type="text" placeholder="Unit Type"-->
-                    <!--input id="sqFt" type="number" placeholder="Square Feet"-->
+    <!--input id="uitType" type="text" placeholder="Unit Type"-->
+    <!--input id="sqFt" type="number" placeholder="Square Feet">
                     <select class = "select" id="unit" label="Unit Type">
                         <option value="1bed">1 Bedroom</option>
                         <option value="2bed">2 Bedroom</option>
@@ -48,15 +48,24 @@
                     <span id="valueScore">0</span>
                 </div>
                 </form>
-            <!--form end-->
-        </div> 
-        <div style="text-align:center;">
-            <button type="button" id="scorebutton">Get Value Score</button>
-        </div>
-        <div style="text-align:center;">
-            <button type="button" id="addApartment">Add Apartment</button>
-        </div>
-        <div id="container"/>
-    </body>
-    <script type="text/javascript" src="src/index.js"></script>
+            <!--form end>
+        </div-->
+
+    <p id="getStarted">Add an Apartment to get started.</p>
+
+    <p id="instructions">
+      Rate the apartments, then click Get Value Score to see how they compare.
+    </p>
+
+    <div class="item" id="newObject"></div>
+
+    <div style="text-align:center;">
+      <button type="button" id="addFormItem">Add Apartment</button>
+    </div>
+
+    <div style="text-align:center;">
+      <button type="button" id="scorebutton">Get Value Score</button>
+    </div>
+  </body>
+  <script type="text/javascript" src="src/index.js"></script>
 </html>
