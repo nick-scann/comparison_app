@@ -104,7 +104,7 @@ function addFormItem() {
     unitRatingLabel.className = "h1";
 
     var costLabel = document.createElement("h4");
-    costLabel.innerText = "Rent + Other Costs";
+    costLabel.innerText = "Rent & Other Costs";
     costLabel.className = "h1";
 
     // Function to create a radio button field and label (does not work)
@@ -198,6 +198,15 @@ function addFormItem() {
     lScoreInputGreat.value = "8";
     lScoreInputGreat.id = "lScoreGreat" + apartments.length;
 
+    var lScoreLabelAmazing = document.createElement("label");
+    lScoreLabelAmazing.innerText = "Amazing";
+    lScoreLabelAmazing.htmlFor = "lScoreAmazing" + apartments.length;
+    var lScoreInputAmazing = document.createElement("input");
+    lScoreInputAmazing.type = "radio";
+    lScoreInputAmazing.name = "lScore" + apartments.length;
+    lScoreInputAmazing.value = "10";
+    lScoreInputAmazing.id = "lScoreAmazing" + apartments.length;
+
     // Create uScore radio button for Bad rating
     var uScoreLabelBad = document.createElement("label");
     uScoreLabelBad.innerText = "Eh";
@@ -227,6 +236,15 @@ function addFormItem() {
     uScoreInputGreat.name = "uScore" + apartments.length;
     uScoreInputGreat.value = "8";
     uScoreInputGreat.id = "uScoreGreat" + apartments.length;
+
+    var uScoreLabelAmazing = document.createElement("label");
+    uScoreLabelAmazing.innerText = "Amazing";
+    uScoreLabelAmazing.htmlFor = "uScoreAmazing" + apartments.length;
+    var uScoreInputAmazing = document.createElement("input");
+    uScoreInputAmazing.type = "radio";
+    uScoreInputAmazing.name = "uScore" + apartments.length;
+    uScoreInputAmazing.value = "10";
+    uScoreInputAmazing.id = "uScoreAmazing" + apartments.length;
 
     // Rent amount list
     var rentAmounts = [
@@ -259,6 +277,7 @@ function addFormItem() {
     // Create rent dropdown
     var rentAmt = document.createElement("select");
     rentAmt.id = "rentAmt" + apartments.length;
+    rentAmt.className = "customSelect";
 
     // Add options to drop down
     for (var j = 0; j < rentAmounts.length; j++) {
@@ -274,6 +293,7 @@ function addFormItem() {
     // Create park dropdown
     var parkAmt = document.createElement("select");
     parkAmt.id = "parkAmt" + apartments.length;
+    parkAmt.className = "customSelect";
 
     // Add options to drop down
     for (var p = 0; p < parkAmounts.length; p++) {
@@ -283,6 +303,7 @@ function addFormItem() {
       parkAmt.appendChild(parkOption);
     }
 
+    var moneySign = document.createTextNode("$");
     var vScore = document.createTextNode("Value Score ");
     var valueScore = document.createElement("span");
     valueScore.innerHTML = 0;
@@ -302,6 +323,8 @@ function addFormItem() {
     lScoreRadioDiv.appendChild(lScoreLabelGood);
     lScoreRadioDiv.appendChild(lScoreInputGreat);
     lScoreRadioDiv.appendChild(lScoreLabelGreat);
+    lScoreRadioDiv.appendChild(lScoreInputAmazing);
+    lScoreRadioDiv.appendChild(lScoreLabelAmazing);
     aForm.appendChild(bScoreDiv);
     bScoreDiv.appendChild(buildingRatingLabel);
     bScoreDiv.appendChild(bScoreRadioDiv);
@@ -322,11 +345,14 @@ function addFormItem() {
     uScoreRadioDiv.appendChild(uScoreLabelGood);
     uScoreRadioDiv.appendChild(uScoreInputGreat);
     uScoreRadioDiv.appendChild(uScoreLabelGreat);
+    uScoreRadioDiv.appendChild(uScoreInputAmazing);
+    uScoreRadioDiv.appendChild(uScoreLabelAmazing);
     //bScoreRadioDiv.appendChild(labelAmazing);
     //bScoreRadioDiv.appendChild(bScoreInputAmazing);
     aForm.appendChild(costDiv);
     costDiv.appendChild(costLabel);
     costDiv.appendChild(rentAmt);
+    rentAmt.appendChild(moneySign);
     costDiv.appendChild(parkAmt);
     aForm.appendChild(vScore);
     aForm.appendChild(valueScore);
@@ -366,6 +392,11 @@ function updateApartments() {
         "bScoreGreat" + +(i + 1)
       ).value;
     }
+    if (document.getElementById("bScoreAmazing" + +(i + 1)).checked) {
+      apartments[i].bScore = document.getElementById(
+        "bScoreAmazing" + +(i + 1)
+      ).value;
+    }
     if (document.getElementById("lScoreBad" + +(i + 1)).checked) {
       apartments[i].lScore = document.getElementById(
         "lScoreBad" + +(i + 1)
@@ -381,6 +412,11 @@ function updateApartments() {
         "lScoreGreat" + +(i + 1)
       ).value;
     }
+    if (document.getElementById("lScoreAmazing" + +(i + 1)).checked) {
+      apartments[i].lScore = document.getElementById(
+        "lScoreAmazing" + +(i + 1)
+      ).value;
+    }
     if (document.getElementById("uScoreBad" + +(i + 1)).checked) {
       apartments[i].uScore = document.getElementById(
         "uScoreBad" + +(i + 1)
@@ -394,6 +430,11 @@ function updateApartments() {
     if (document.getElementById("uScoreGreat" + +(i + 1)).checked) {
       apartments[i].uScore = document.getElementById(
         "uScoreGreat" + +(i + 1)
+      ).value;
+    }
+    if (document.getElementById("uScoreAmazing" + +(i + 1)).checked) {
+      apartments[i].uScore = document.getElementById(
+        "uScoreAmazing" + +(i + 1)
       ).value;
     }
     updateView();
