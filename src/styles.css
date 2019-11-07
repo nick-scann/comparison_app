@@ -50,7 +50,7 @@
     margin: 10px
   }
   input[type = text] {
-    width: 75%;
+    width: 339px;
   }
   input[type = number] {
     width: 48%;
@@ -122,5 +122,9 @@
   }
   .score{
     padding-top: 30px;
+  }
+  .valueScore{
+    font-size: 1.875em;
+    color: #45a049;
   }
 </style>

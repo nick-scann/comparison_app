@@ -24,7 +24,10 @@ function Apartment(name, rentAmt, parkAmt, lScore, bScore, uScore) {
     return +this.rentAmt + +this.parkAmt;
   };
   this.valueScore = function() {
-    return +this.totalScore() - +this.totalCost() / 1000;
+    return Math.round(
+      +this.totalScore() -
+        ((+this.totalCost() / 1600) * +this.totalCost()) / 1000
+    );
   };
 }
 
@@ -308,6 +311,7 @@ function addFormItem() {
     var valueScore = document.createElement("span");
     valueScore.innerHTML = 0;
     valueScore.id = "valueScore" + apartments.length;
+    valueScore.className = "valueScore";
 
     // Attach objects to page
     newObject.appendChild(apartmentDiv);
