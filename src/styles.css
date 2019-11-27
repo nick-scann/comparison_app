@@ -13,6 +13,9 @@
       margin: auto;
       text-align: center;
   }
+  h3 {
+
+  }
   h4{
     margin: auto;
     font-weight: 1;
@@ -20,6 +23,27 @@
   p {
     margin: center;
     text-align: center;
+  }
+  .bNameDisplay {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .objectStatic{
+    position: relative;
+    margin-bottom: 20px;
+    background-color:#fff;
+    padding: 10px;
+  }
+  .itemStatic{
+    width: 70%;
+    display: inline-block;
+  }
+  .scoreDiv{
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+    position: relative;
+    right: 0;
   }
   .radioDiv{
     float: left;
@@ -33,17 +57,18 @@
     margin: auto;
   }
   form {
-    padding-bottom: 25px;
+    padding: 20px;
   }
   .item{
-    padding: 25px;
-    padding-top: 25px;
-    background-color: #ffffff;
-    width: 60%;
+    padding: 20px;
+    padding-top: 20px;
+    width: 70%;
     margin: auto;
+    margin-bottom: 10px;
   }
   .newItem{
     padding-top: 10px;
+    background-color: #fff;
   }
   #button {
     padding: 3px; 
@@ -79,8 +104,8 @@
     background-color: rgb(102, 192, 102);
     color: #fff;
   }
- .select {
-    width: 48%;
+ .customSelect {
+    width: 30%;
     height: 20px;
   }
   input, select {
@@ -116,6 +141,11 @@
     position: relative;
     padding: 5px;
   }
+  .ratingLabel{
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+  }
   button:hover {
     background-color: #45a049;
     color: #ffffff;
@@ -124,7 +154,7 @@
     padding-top: 30px;
   }
   .valueScore{
-    font-size: 1.875em;
+    font-size: 1.5em;
     color: #45a049;
   }
 </style>

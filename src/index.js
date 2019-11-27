@@ -1,10 +1,32 @@
 import "./styles.css";
 
+//const axios = require("axios");
+
+const apartments_api =
+  "https://v2-api.sheety.co/e358130086416f2bce55aab2fbea9952/myApartmentsApi/apartments";
+
+/*
+$(document).ready(function() {
+  $.getJSON(
+    "https://v2-api.sheety.co/e358130086416f2bce55aab2fbea9952/myApartmentsApi/apartments",
+    function(data) {
+      var template = Handlebars.compile($("#item-template").html());
+      $("#items").html(template(data));
+    }
+  );
+});
+
+*/
+
+let apartment_id = "";
+
 //Define apartments object
 var apartments = [];
 
 // Hide apartment object until added
 document.getElementById("newObject").style.display = "none";
+
+var marketAvg = 1600;
 
 // Apartment object constructor
 function Apartment(name, rentAmt, parkAmt, lScore, bScore, uScore) {
@@ -26,7 +48,7 @@ function Apartment(name, rentAmt, parkAmt, lScore, bScore, uScore) {
   this.valueScore = function() {
     return Math.round(
       +this.totalScore() -
-        ((+this.totalCost() / 1600) * +this.totalCost()) / 1000
+        ((+this.totalCost() / marketAvg) * +this.totalCost()) / 1000
     );
   };
 }
@@ -48,9 +70,26 @@ function addFormItem() {
     console.log(apartments);
     newObject.className = "item";
 
-    var apartmentDiv = document.createElement("div");
-    apartmentDiv.id = "section" + apartments.length;
-    apartmentDiv.className = "newItem";
+    // Div for add / edit apartment object
+    var objectEditDiv = document.createElement("div");
+    objectEditDiv.id = "objectEdit" + apartments.length;
+    objectEditDiv.className = "newItem";
+
+    // Div for static display of apartmentment object
+    var objectStaticDiv = document.createElement("div");
+    objectStaticDiv.id = "objectStatic" + apartments.length;
+    objectStaticDiv.className = "objectStatic";
+
+    var itemStaticDiv = document.createElement("div");
+    itemStaticDiv.id = "itemStatic" + apartments.length;
+    itemStaticDiv.className = "itemStatic";
+
+    var scoreStaticDiv = document.createElement("div");
+    scoreStaticDiv.id = "scoreStatic" + apartments.length;
+    scoreStaticDiv.className = "scoreDiv";
+
+    var apartmentLabel = document.createElement("h4");
+    apartmentLabel.innerText = "Apartment " + apartments.length;
 
     var apartmentTitle = document.createTextNode(
       "Apartment " + apartments.length
@@ -61,8 +100,18 @@ function addFormItem() {
 
     var bName = document.createElement("input");
     bName.type = "text";
-    bName.id = "buildingName" + apartments.length;
+    bName.id = "bName" + apartments.length;
     bName.placeholder = "Building Name";
+
+    var bNameDisplay = document.createElement("h4");
+    bNameDisplay.id = "bNameDisplay" + apartments.length;
+    bNameDisplay.className = "bNameDisplay";
+
+    var bPrice = document.createElement("span");
+    bPrice.id = "bPrice" + apartments.length;
+
+    var monthly = document.createElement("span");
+    monthly.innerText = " Monthly";
 
     var bScoreDiv = document.createElement("div");
     bScoreDiv.id = "bScoreDiv";
@@ -95,20 +144,20 @@ function addFormItem() {
 
     // Labels for ratings
     var buildingRatingLabel = document.createElement("h4");
-    buildingRatingLabel.innerText = "Building Rating";
-    buildingRatingLabel.className = "h1";
+    buildingRatingLabel.innerText = "How is the building?";
+    buildingRatingLabel.className = "ratingLabel";
 
     var locationRatingLabel = document.createElement("h4");
-    locationRatingLabel.innerText = "Location Rating";
-    locationRatingLabel.className = "h1";
+    locationRatingLabel.innerText = "How is the location?";
+    locationRatingLabel.className = "ratingLabel";
 
     var unitRatingLabel = document.createElement("h4");
-    unitRatingLabel.innerText = "Unit Rating";
-    unitRatingLabel.className = "h1";
+    unitRatingLabel.innerText = "How is the unit?";
+    unitRatingLabel.className = "ratingLabel";
 
     var costLabel = document.createElement("h4");
     costLabel.innerText = "Rent & Other Costs";
-    costLabel.className = "h1";
+    costLabel.className = "ratingLabel";
 
     // Function to create a radio button field and label (does not work)
     /*
@@ -133,7 +182,7 @@ function addFormItem() {
 
     // Create bScore radio button for Bad rating
     var bScoreLabelBad = document.createElement("label");
-    bScoreLabelBad.innerText = "Eh";
+    bScoreLabelBad.innerText = "OK";
     bScoreLabelBad.htmlFor = "bScoreBad" + apartments.length;
     var bScoreInputBad = document.createElement("input");
     bScoreInputBad.type = "radio";
@@ -173,7 +222,7 @@ function addFormItem() {
 
     // Create lScore radio button for Bad rating
     var lScoreLabelBad = document.createElement("label");
-    lScoreLabelBad.innerText = "Eh";
+    lScoreLabelBad.innerText = "OK";
     lScoreLabelBad.htmlFor = "lScoreBad" + apartments.length;
     var lScoreInputBad = document.createElement("input");
     lScoreInputBad.type = "radio";
@@ -212,7 +261,7 @@ function addFormItem() {
 
     // Create uScore radio button for Bad rating
     var uScoreLabelBad = document.createElement("label");
-    uScoreLabelBad.innerText = "Eh";
+    uScoreLabelBad.innerText = "OK";
     uScoreLabelBad.htmlFor = "uScoreBad" + apartments.length;
     var uScoreInputBad = document.createElement("input");
     uScoreInputBad.type = "radio";
@@ -314,9 +363,9 @@ function addFormItem() {
     valueScore.className = "valueScore";
 
     // Attach objects to page
-    newObject.appendChild(apartmentDiv);
-    apartmentDiv.appendChild(apartmentTitle);
-    apartmentDiv.appendChild(aForm);
+    newObject.appendChild(objectEditDiv);
+    objectEditDiv.appendChild(aForm);
+    aForm.appendChild(apartmentLabel);
     aForm.appendChild(bName);
     aForm.appendChild(lScoreDiv);
     lScoreDiv.appendChild(locationRatingLabel);
@@ -358,10 +407,23 @@ function addFormItem() {
     costDiv.appendChild(rentAmt);
     rentAmt.appendChild(moneySign);
     costDiv.appendChild(parkAmt);
-    aForm.appendChild(vScore);
-    aForm.appendChild(valueScore);
+    // Static display div
+    newObject.appendChild(objectStaticDiv);
+    objectStaticDiv.appendChild(itemStaticDiv);
+    itemStaticDiv.appendChild(bNameDisplay);
+    itemStaticDiv.appendChild(moneySign);
+    itemStaticDiv.appendChild(bPrice);
+    itemStaticDiv.appendChild(monthly);
+    objectStaticDiv.appendChild(scoreStaticDiv);
+    scoreStaticDiv.appendChild(valueScore);
+    scoreStaticDiv.appendChild(vScore);
     document.getElementById("valueScore" + apartments.length).style.display =
       "none";
+    // Hide static display div
+    document.getElementById("objectStatic" + apartments.length).style.display =
+      "none";
+    // Hide get started text
+    document.getElementById("getStarted").style.display = "none";
   }
 }
 
@@ -373,9 +435,18 @@ function updateApartments() {
     ).innerHTML = apartments[i].valueScore();
     document.getElementById("valueScore" + apartments.length).style.display =
       "block";
+    document.getElementById("bNameDisplay" + apartments.length).innerHTML =
+      apartments[i].name;
+    document.getElementById(
+      "bPrice" + apartments.length
+    ).innerHTML = apartments[i].totalCost();
+    document.getElementById("objectStatic" + apartments.length).style.display =
+      "block";
+    document.getElementById("objectEdit" + apartments.length).style.display =
+      "none";
   }
   for (var i = 0; i < apartments.length; i++) {
-    apartments[i].name = document.getElementsByName("bScore" + (i + 1)).value;
+    apartments[i].name = document.getElementById("bName" + +(i + 1)).value;
     apartments[i].rentAmt = document.getElementById("rentAmt" + +(i + 1)).value;
     apartments[i].parkAmt = document.getElementById("parkAmt" + +(i + 1)).value;
     /*apartments[i].lScore = document.getElementById(
@@ -440,7 +511,9 @@ function updateApartments() {
       apartments[i].uScore = document.getElementById(
         "uScoreAmazing" + +(i + 1)
       ).value;
+      //hide instructions
     }
+    document.getElementById("instructions").style.display = "none";
     updateView();
   }
 }
@@ -449,10 +522,69 @@ function updateApartments() {
 document.getElementById("scorebutton").onclick = function() {
   updateApartments();
   console.log(apartments);
-  console.log(apartments[0].buildingScore());
+  console.log(apartments[0]);
+  console.log(JSON.stringify(apartments[0]));
+  /*console.log(apartments[0].buildingScore());
   console.log(apartments[0].totalCost());
   console.log(apartments[0].totalScore());
-  console.log(apartments[0].valueScore());
+  console.log(apartments[0].valueScore());*/
+};
+
+// Making a POST request using an axios instance from a connected library
+function saveApartments() {
+  var apartmentsJSON = JSON.stringify(apartments[0]);
+  console.log(apartmentsJSON);
+
+  $.post(
+    apartments_api,
+    {
+      apartment:
+        //apartments[0]
+        apartmentsJSON
+      //JSON.stringify(apartments[0])
+      /*{
+          name: "jQuery Apartment",
+          rentAmt: "1200",
+          parkAmt: "0",
+          lScore: "10",
+          bScore: "10",
+          uScore: "8"
+        }*/
+    },
+    function(data) {
+      console.log(data);
+    }
+  );
+
+  // Axios post that wouldn't work
+  /*axios
+    .post(apartments_api, {
+      "apartment":
+      //JSON.stringify(apartments[0])  
+      ////apartmentsJSON
+        {
+          name: "Axios Apartment",
+          rentAmt: "1200",
+          parkAmt: "0",
+          lScore: "10",
+          bScore: "10",
+          uScore: "8"
+        }
+    })
+    // Handle a successful response from the server
+    .then(response => {
+      // Getting a data object from response that contains the necessary data from the server
+      const data = response.data;
+      console.log("data", data);
+      // Save the unique id that the server gives to our object
+      apartment_id = data._id;
+    })
+    // Catch and print errors if any
+    .catch(error => console.error("On create apartment error", error));*/
+}
+
+document.getElementById("savebutton").onclick = function() {
+  saveApartments();
 };
 
 /* Old stuff
